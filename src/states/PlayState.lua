@@ -29,7 +29,7 @@ function PlayState:enter(params)
     -- self.ball = params.ball
     self.balls = { params.ball }
     self.level = params.level
-    self.powerups = { Powerup('shrink', VIRTUAL_WIDTH / 2, VIRTUAL_HEIGHT / 3)  }
+    self.powerups = { Powerup('multiple', VIRTUAL_WIDTH / 2, VIRTUAL_HEIGHT / 3)  }
 
     self.recoverPoints = 5000
 
@@ -267,11 +267,13 @@ end
 
 function PlayState:spawnBalls(n)
     local ball
-    for i = 0, n do
-        ball = Ball(1)
+
+    for i = 1, n do
+        ball = Ball(math.random(7))
         ball.x = self.paddle.x + self.paddle.width / 2
         ball.y = self.paddle.y - 16
-        ball.dy = -math.abs(self.balls[1].dy)
+        ball.dx = math.random(-100, 100)
+        ball.dy = math.random(-50, -60)
 
         table.insert(self.balls, ball)
     end
