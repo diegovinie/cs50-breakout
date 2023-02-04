@@ -29,7 +29,7 @@ function PlayState:enter(params)
     -- self.ball = params.ball
     self.balls = { params.ball }
     self.level = params.level
-    self.powerups = { Powerup('multiple', VIRTUAL_WIDTH / 2, VIRTUAL_HEIGHT / 3)  }
+    self.powerups = { Powerup('key', VIRTUAL_WIDTH / 2, VIRTUAL_HEIGHT / 3)  }
 
     self.recoverPoints = 5000
 

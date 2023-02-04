@@ -32,7 +32,7 @@ function Powerup:getReward(game)
     elseif self.type == 'shrink' then
         game.paddle.size = math.max(2, game.paddle.size - 1)
     elseif self.type == 'key' then
-
+        game.paddle.hasKey = true
     elseif self.type == 'multiple' then
         game:spawnBalls(2)
     else

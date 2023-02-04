@@ -42,6 +42,8 @@ function Paddle:init(skin)
     -- starting dimensions
     self.width = 32 * self.size
     self.height = 16
+
+    self.hasKey = false
 end
 
 function Paddle:update(dt)
@@ -78,4 +80,8 @@ end
 function Paddle:render()
     love.graphics.draw(gTextures['main'], gFrames['paddles'][self.size + 4 * (self.skin - 1)],
         self.x, self.y)
+
+    if self.hasKey then
+        love.graphics.draw(gTextures['main'], gFrames['powerups']['key'], self.x - 8 + self.width / 2, self.y)
+    end
 end
