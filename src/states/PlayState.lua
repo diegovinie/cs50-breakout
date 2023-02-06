@@ -29,9 +29,11 @@ function PlayState:enter(params)
     -- self.ball = params.ball
     self.balls = { params.ball }
     self.level = params.level
-    self.powerups = { Powerup('key', VIRTUAL_WIDTH / 2, VIRTUAL_HEIGHT / 3)  }
+    self.powerups = {}
 
     self.recoverPoints = 5000
+
+    self.scoreBaseline = 0
 
     -- give ball random starting velocity
     self.balls[1].dx = math.random(-200, 200)
@@ -107,9 +109,13 @@ function PlayState:update(dt)
                     -- add to score
                     self.score = self.score + (brick.tier * 200 + brick.color * 25)
 
-
                     if brick.tier == 0 and brick.color == 1 then
-                        table.insert(self.powerups, Powerup('grow', brick.x, brick.y))
+                        if brick.hasKey then
+                            brick.hasKey = false
+                            table.insert(self.powerups, Powerup('key', brick.x, brick.y))
+                        elseif self:checkScoreReward(self.score) then
+                            table.insert(self.powerups, Powerup(Powerup.getRandomType(), brick.x, brick.y))
+                        end
                     end
 
                     -- if we have enough points, recover a point of health
@@ -302,4 +308,14 @@ function PlayState:checkBallsInPlay()
         end
     end
     return inPlay
+end
+
+function PlayState:checkScoreReward(score)
+    if self.score >= self.scoreBaseline + SCORE_REWARD_STEP then
+        self.scoreBaseline = self.score - self.score % SCORE_REWARD_STEP
+
+        return true
+    end
+
+    return false
 end

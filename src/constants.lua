@@ -20,3 +20,5 @@ VIRTUAL_HEIGHT = 243
 
 -- paddle movement speed
 PADDLE_SPEED = 200
+
+SCORE_REWARD_STEP = 400

@@ -26,7 +26,7 @@ end
 
 function Powerup:getReward(game)
     if self.type == 'heart' then
-        game.health = game.health + 1
+        game.health = math.min(3, game.health + 1)
     elseif self.type == 'grow' then
         game.paddle.size = math.min(4, game.paddle.size + 1)
     elseif self.type == 'shrink' then
@@ -56,4 +56,26 @@ function Powerup:render()
     if self.inPlay then
         love.graphics.draw(gTextures.main, gFrames.powerups[self.type], self.x, self.y);
     end
+end
+
+Powerup.typeFreq = {
+    ['heart'] = 1,
+    ['multiple'] = 3,
+    ['grow'] = 2,
+    ['shrink'] = 1
+}
+
+-- Return a random Powerup type based on the frequency described in Powerup.typeFreq
+function Powerup.getRandomType()
+    local options = {}
+
+    for type, freq in pairs(Powerup.typeFreq) do
+        for i = 1, freq do
+            table.insert(options, type)
+        end
+    end
+
+    local index = math.random(#options)
+
+    return options[index]
 end
