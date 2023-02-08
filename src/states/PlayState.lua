@@ -32,6 +32,7 @@ function PlayState:enter(params)
     self.powerups = {}
 
     self.recoverPoints = 5000
+    self.paddle.hasKey = false
 
     self.scoreBaseline = 0
 
