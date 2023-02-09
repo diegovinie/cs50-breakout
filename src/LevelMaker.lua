@@ -31,6 +31,7 @@ LevelMaker = Class{}
     brick colors and tiers to choose based on the level passed in.
 ]]
 function LevelMaker.createMap(level)
+    print('level', level)
     local bricks = {}
 
     -- randomly choose the number of rows
@@ -45,7 +46,7 @@ function LevelMaker.createMap(level)
     local highestTier = math.min(3, math.floor(level / 5))
 
     -- highest color of the highest tier, no higher than 5
-    local highestColor = math.min(5, level % 5 + 3)
+    local highestColor = math.min(5, level)
 
     -- lay out bricks such that they touch each other and fill the space
     for y = 1, numRows do
@@ -123,7 +124,8 @@ function LevelMaker.createMap(level)
     if #bricks < 3 then
         return LevelMaker.createMap(level)
     else
-        return LevelMaker.addKeyLocked(bricks)
+        bricks[math.random(#bricks)].locked = true
+        return bricks
     end
 end
 

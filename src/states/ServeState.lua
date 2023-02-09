@@ -26,6 +26,7 @@ function ServeState:enter(params)
     self.level = params.level
     self.recoverPoints = params.recoverPoints
     self.paddle.size = 2
+    self.paddle.hasKey = false
 
     -- init new ball (random color for fun)
     self.ball = Ball()

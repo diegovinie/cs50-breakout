@@ -32,16 +32,33 @@ function PlayState:enter(params)
     self.powerups = {}
 
     self.recoverPoints = 5000
-    self.paddle.hasKey = false
 
     self.scoreBaseline = 0
 
     -- give ball random starting velocity
     self.balls[1].dx = math.random(-200, 200)
     self.balls[1].dy = math.random(-50, -60)
+
+    self.hasLockedBricks = false
+    self.timer = 0
+
+    for _, brick in pairs(self.bricks) do
+        if brick.locked then
+            self.hasLockedBricks = true
+        end
+    end
 end
 
 function PlayState:update(dt)
+    if self.hasLockedBricks and not self.paddle.hasKey then
+        self.timer = self.timer + dt
+        if self.timer >= KEY_SPAWN_DELAY then
+            table.insert(self.powerups, Powerup('key', math.random(16, VIRTUAL_WIDTH - 16), 8))
+
+            self.timer = self.timer % KEY_SPAWN_DELAY
+        end
+    end
+
     if self.paused then
         if love.keyboard.wasPressed('space') then
             self.paused = false
@@ -61,10 +78,6 @@ function PlayState:update(dt)
     for _, ball in pairs(self.balls) do
         ball:update(dt)
     end
-
-    -- if (pu:collides(self.paddle)) then
-    --     print('hey')
-    -- end
 
     for i, powerup in ipairs(self.powerups) do
         if powerup.inPlay and powerup:collides(self.paddle) then
