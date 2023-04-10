@@ -37,7 +37,7 @@ function PlayState:enter(params)
 
     -- give ball random starting velocity
     self.balls[1].dx = math.random(-200, 200)
-    self.balls[1].dy = math.random(-50, -60)
+    self.balls[1].dy = -math.random(50, 60)
 
     self.hasLockedBricks = false
     self.timer = 0

@@ -49,6 +49,8 @@ function LevelMaker.createMap(level)
     local highestColor = math.min(5, level)
 
     -- lay out bricks such that they touch each other and fill the space
+
+
     for y = 1, numRows do
         -- whether we want to enable skipping for this row
         local skipPattern = math.random(1, 2) == 1 and true or false
@@ -72,14 +74,14 @@ function LevelMaker.createMap(level)
         local solidColor = math.random(1, highestColor)
         local solidTier = math.random(0, highestTier)
 
-        for x = 1, numCols do
+        local function continueThis(x)
             -- if skipping is turned on and we're on a skip iteration...
             if skipPattern and skipFlag then
                 -- turn skipping off for the next iteration
                 skipFlag = not skipFlag
 
                 -- Lua doesn't have a continue statement, so this is the workaround
-                goto continue
+                return
             else
                 -- flip the flag to true on an iteration we don't use it
                 skipFlag = not skipFlag
@@ -114,9 +116,10 @@ function LevelMaker.createMap(level)
             end
 
             table.insert(bricks, b)
+end
 
-            -- Lua's version of the 'continue' statement
-            ::continue::
+        for x = 1, numCols do
+            continueThis(x)
         end
     end
 
@@ -143,3 +146,6 @@ function LevelMaker.addKeyLocked(bricks)
 
     return bricks
 end
+
+
+
