@@ -12,5 +12,5 @@ var options = {
 app.use(express.static('./dist', options));
 
 
-var server = app.listen(80);
+var server = app.listen(5000);
 
