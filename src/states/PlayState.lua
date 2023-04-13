@@ -303,7 +303,7 @@ function PlayState:spawnBalls(n)
         ball.x = self.paddle.x + self.paddle.width / 2
         ball.y = self.paddle.y - 16
         ball.dx = math.random(-100, 100)
-        ball.dy = math.random(-50, -60)
+        ball.dy = -math.random(50, 60)
 
         table.insert(self.balls, ball)
     end
