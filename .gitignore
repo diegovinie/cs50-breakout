@@ -4,3 +4,7 @@ package-lock.json
 breakout.love
 pathsToShip
 deps/
+/luarocks
+/lua
+/lua_modules
+/.luarocks
