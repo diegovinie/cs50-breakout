@@ -26,13 +26,13 @@ end
 
 function StartState:update(dt)
     -- toggle highlighted option if we press an arrow key up or down
-    if love.keyboard.wasPressed('up') or love.keyboard.wasPressed('down') then
+    if gControl:pressed('up') or gControl:pressed('down') then
         highlighted = highlighted == 1 and 2 or 1
         gSounds['paddle-hit']:play()
     end
 
     -- confirm whichever option we have selected to change screens
-    if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
+    if gControl:pressed('start') then
         gSounds['confirm']:play()
 
         if highlighted == 1 then
@@ -47,7 +47,7 @@ function StartState:update(dt)
     end
 
     -- we no longer have this globally, so include here
-    if love.keyboard.wasPressed('escape') then
+    if gControl:pressed('quit') then
         love.event.quit()
     end
 end
@@ -57,7 +57,7 @@ function StartState:render()
     love.graphics.setFont(gFonts['large'])
     love.graphics.printf("BREAKOUT", 0, VIRTUAL_HEIGHT / 3,
         VIRTUAL_WIDTH, 'center')
-    
+
     -- instructions
     love.graphics.setFont(gFonts['medium'])
 

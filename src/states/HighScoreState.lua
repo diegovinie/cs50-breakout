@@ -18,9 +18,9 @@ end
 
 function HighScoreState:update(dt)
     -- return to the start screen if we press escape
-    if love.keyboard.wasPressed('escape') then
+    if gControl:pressed('quit') then
         gSounds['wall-hit']:play()
-        
+
         gStateMachine:change('start', {
             highScores = self.highScores
         })
@@ -39,13 +39,13 @@ function HighScoreState:render()
         local score = self.highScores[i].score or '---'
 
         -- score number (1-10)
-        love.graphics.printf(tostring(i) .. '.', VIRTUAL_WIDTH / 4, 
+        love.graphics.printf(tostring(i) .. '.', VIRTUAL_WIDTH / 4,
             60 + i * 13, 50, 'left')
 
         -- score name
-        love.graphics.printf(name, VIRTUAL_WIDTH / 4 + 38, 
+        love.graphics.printf(name, VIRTUAL_WIDTH / 4 + 38,
             60 + i * 13, 50, 'right')
-        
+
         -- score itself
         love.graphics.printf(tostring(score), VIRTUAL_WIDTH / 2,
             60 + i * 13, 100, 'right')

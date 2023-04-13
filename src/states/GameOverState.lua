@@ -20,10 +20,10 @@ function GameOverState:enter(params)
 end
 
 function GameOverState:update(dt)
-    if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
+    if gControl:pressed('start') or gControl:pressed('buttonA') then
         -- see if score is higher than any in the high scores table
         local highScore = false
-        
+
         -- keep track of what high score ours overwrites, if any
         local scoreIndex = 11
 
@@ -41,15 +41,15 @@ function GameOverState:update(dt)
                 highScores = self.highScores,
                 score = self.score,
                 scoreIndex = highScoreIndex
-            }) 
-        else 
+            })
+        else
             gStateMachine:change('start', {
                 highScores = self.highScores
-            }) 
+            })
         end
     end
 
-    if love.keyboard.wasPressed('escape') then
+    if gControl:pressed('quit') then
         love.event.quit()
     end
 end

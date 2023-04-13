@@ -39,7 +39,7 @@ function ServeState:update(dt)
     self.ball.x = self.paddle.x + (self.paddle.width / 2) - 4
     self.ball.y = self.paddle.y - 8
 
-    if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
+    if gControl:pressed('start') or gControl:pressed('buttonA') then
         -- pass in all important state info to the PlayState
         gStateMachine:change('play', {
             paddle = self.paddle,
@@ -53,7 +53,7 @@ function ServeState:update(dt)
         })
     end
 
-    if love.keyboard.wasPressed('escape') then
+    if gControl:pressed('quit') then
         love.event.quit()
     end
 end

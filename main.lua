@@ -26,6 +26,8 @@
 
 require 'src/Dependencies'
 
+gControl = Control({ engine = love, position = 1, player = 'A'})
+
 --[[
     Called just once at the beginning of the game; used to set up
     game objects, variables, etc. and prepare the game world.
@@ -128,11 +130,6 @@ function love.load()
     gSounds['music']:play()
     gSounds['music']:setLooping(true)
 
-    -- a table we'll use to keep track of which keys have been pressed this
-    -- frame, to get around the fact that LÖVE's default callback won't let us
-    -- test for input from within other functions
-    love.keyboard.keysPressed = {}
-
     -- pu = Powerup('heart', 50, 50);
 end
 
@@ -155,12 +152,14 @@ end
     across system hardware.
 ]]
 function love.update(dt)
+    Control.UpdateAll()
     -- this time, we pass in dt to the state object we're currently using
     gStateMachine:update(dt)
 
     -- pu:update(dt);
     -- reset keys pressed
-    love.keyboard.keysPressed = {}
+
+    Control.CleanInputs()
 end
 
 --[[
@@ -170,21 +169,7 @@ end
     things to happen right away, just once, like when we want to quit.
 ]]
 function love.keypressed(key)
-    -- add to our table of keys pressed this frame
-    love.keyboard.keysPressed[key] = true
-end
-
---[[
-    A custom function that will let us test for individual keystrokes outside
-    of the default `love.keypressed` callback, since we can't call that logic
-    elsewhere by default.
-]]
-function love.keyboard.wasPressed(key)
-    if love.keyboard.keysPressed[key] then
-        return true
-    else
-        return false
-    end
+    Control.RegisterKeyboard(key)
 end
 
 --[[

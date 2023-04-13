@@ -29,7 +29,7 @@ function EnterHighScoreState:enter(params)
 end
 
 function EnterHighScoreState:update(dt)
-    if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
+    if gControl:pressed('start') or gControl:pressed('buttonA') then
         -- update scores table
         local name = string.char(chars[1]) .. string.char(chars[2]) .. string.char(chars[3])
 
@@ -60,21 +60,21 @@ function EnterHighScoreState:update(dt)
     end
 
     -- scroll through character slots
-    if love.keyboard.wasPressed('left') and highlightedChar > 1 then
+    if gControl:pressed('left') and highlightedChar > 1 then
         highlightedChar = highlightedChar - 1
         gSounds['select']:play()
-    elseif love.keyboard.wasPressed('right') and highlightedChar < 3 then
+    elseif gControl:pressed('right') and highlightedChar < 3 then
         highlightedChar = highlightedChar + 1
         gSounds['select']:play()
     end
 
     -- scroll through characters
-    if love.keyboard.wasPressed('up') then
+    if gControl:pressed('up') then
         chars[highlightedChar] = chars[highlightedChar] + 1
         if chars[highlightedChar] > 90 then
             chars[highlightedChar] = 65
         end
-    elseif love.keyboard.wasPressed('down') then
+    elseif gControl:pressed('down') then
         chars[highlightedChar] = chars[highlightedChar] - 1
         if chars[highlightedChar] < 65 then
             chars[highlightedChar] = 90
@@ -88,7 +88,7 @@ function EnterHighScoreState:render()
         VIRTUAL_WIDTH, 'center')
 
     love.graphics.setFont(gFonts['large'])
-    
+
     --
     -- render all three characters of the name
     --
@@ -109,7 +109,7 @@ function EnterHighScoreState:render()
     end
     love.graphics.print(string.char(chars[3]), VIRTUAL_WIDTH / 2 + 20, VIRTUAL_HEIGHT / 2)
     love.graphics.setColor(1, 1, 1, 1)
-    
+
     love.graphics.setFont(gFonts['small'])
     love.graphics.printf('Press Enter to confirm!', 0, VIRTUAL_HEIGHT - 18,
         VIRTUAL_WIDTH, 'center')

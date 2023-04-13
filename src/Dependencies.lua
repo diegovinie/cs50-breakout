@@ -12,6 +12,8 @@ push = require 'lib/push'
 -- https://github.com/vrld/hump/blob/master/class.lua
 Class = require 'lib/class'
 
+Control = require 'love2dControl.Control'
+
 -- a few global constants, centralized
 require 'src/constants'
 

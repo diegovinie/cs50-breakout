@@ -50,9 +50,9 @@ function Paddle:update(dt)
     self.width = 32 * self.size
 
     -- keyboard input
-    if love.keyboard.isDown('left') then
+    if gControl.left then
         self.dx = -PADDLE_SPEED
-    elseif love.keyboard.isDown('right') then
+    elseif gControl.right then
         self.dx = PADDLE_SPEED
     else
         self.dx = 0

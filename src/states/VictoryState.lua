@@ -8,7 +8,7 @@
     cogden@cs50.harvard.edu
 
     Represents the state that the game is in when we've just completed a level.
-    Very similar to the ServeState, except here we increment the level 
+    Very similar to the ServeState, except here we increment the level
 ]]
 
 VictoryState = Class{__includes = BaseState}
@@ -31,7 +31,7 @@ function VictoryState:update(dt)
     self.ball.y = self.paddle.y - 8
 
     -- go to play screen if the player presses Enter
-    if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
+    if gControl:pressed('start') or gControl:pressed('buttonA') then
         gStateMachine:change('serve', {
             level = self.level + 1,
             bricks = LevelMaker.createMap(self.level + 1),

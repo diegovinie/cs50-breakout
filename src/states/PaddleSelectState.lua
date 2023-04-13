@@ -25,14 +25,14 @@ function PaddleSelectState:init()
 end
 
 function PaddleSelectState:update(dt)
-    if love.keyboard.wasPressed('left') then
+    if gControl:pressed('left') then
         if self.currentPaddle == 1 then
             gSounds['no-select']:play()
         else
             gSounds['select']:play()
             self.currentPaddle = self.currentPaddle - 1
         end
-    elseif love.keyboard.wasPressed('right') then
+    elseif gControl:pressed('right') then
         if self.currentPaddle == 4 then
             gSounds['no-select']:play()
         else
@@ -42,7 +42,7 @@ function PaddleSelectState:update(dt)
     end
 
     -- select paddle and move on to the serve state, passing in the selection
-    if love.keyboard.wasPressed('return') or love.keyboard.wasPressed('enter') then
+    if gControl:pressed('start') or gControl:pressed('buttonA') then
         gSounds['confirm']:play()
 
         gStateMachine:change('serve', {
@@ -56,7 +56,7 @@ function PaddleSelectState:update(dt)
         })
     end
 
-    if love.keyboard.wasPressed('escape') then
+    if gControl:pressed('quit') then
         love.event.quit()
     end
 end
