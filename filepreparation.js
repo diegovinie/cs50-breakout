@@ -3,7 +3,7 @@ const sep = require('path').sep;
 
 const resoucesExts = ['png','ttf', 'wav'];
 const basedir = '.' + sep;
-const depsdir = basedir + 'deps' + sep;
+const depsdir = basedir;
 const ext = '.lua';
 const inputFile =  basedir + 'main.lua';
 const outputFile = basedir + 'pathsToShip';
@@ -134,8 +134,8 @@ function savePathsToFile(paths) {
 function main(path) {
     loadLuaPaths();
 
-    if (fs.existsSync(depsdir))
-        fs.rmSync(depsdir, { recursive: true });
+    // if (fs.existsSync(depsdir))
+    //     fs.rmSync(depsdir, { recursive: true });
 
     onModuleFound(path);
     savePathsToFile(filterReps(gPaths));

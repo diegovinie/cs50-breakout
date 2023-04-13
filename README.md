@@ -6,3 +6,10 @@
 - Multiple powerup will spawn 2 more balls, only when all balls are lost the player loses a a live.
 - Grow and shrink powerups will affect the paddle.
 
+$(luarocks path --bin)
+
+luarocks make --local
+
+npm install
+
+node server.js
