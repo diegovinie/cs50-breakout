@@ -50,9 +50,9 @@ function Paddle:update(dt)
     self.width = 32 * self.size
 
     -- keyboard input
-    if gControl.left then
+    if gControl['left'] then
         self.dx = -PADDLE_SPEED
-    elseif gControl.right then
+    elseif gControl['right'] then
         self.dx = PADDLE_SPEED
     else
         self.dx = 0

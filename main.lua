@@ -172,6 +172,14 @@ function love.keypressed(key)
     Control.RegisterKeyboard(key)
 end
 
+function love.gamepadpressed(joystick, button)
+    if button == 'back' then
+        love.event.quit()
+    end
+
+    Control.RegisterGamepad(button, joystick:getID())
+end
+
 --[[
     Called each frame after update; is responsible simply for
     drawing all of our game objects and more to the screen.
