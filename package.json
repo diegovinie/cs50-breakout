@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "sh postinstall.sh && node server.js"
+    "build:dev": "sh postinstall.sh",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
