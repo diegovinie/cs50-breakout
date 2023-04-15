@@ -4,8 +4,11 @@ local presets = require 'love2dControl.presets'
 ---This the global state, used with static methods
 local state = {
     inputPressed = { gp = {}, kb = {} },
+    joysticks = {},
     controls = {}
 }
+
+local engine
 
 local Control = Class{}
 
@@ -23,9 +26,11 @@ function Control:init(def)
     local kbSet = def.kbSet or presets.kb1
     local gpSet = def.gpSet or presets.gp1
     self.engine = def.engine
+    engine = def.engine
     self.player = def.player
 
     local joysticks = self.engine.joystick.getJoysticks()
+    state.joysticks = joysticks
 
     self.joystick = joysticks[self.position]
     self.inputMap = Control.GenInputMap(kbSet, gpSet)
@@ -118,6 +123,15 @@ function Control.UpdateAll(dt)
     end
 end
 
+function Control.RegisterJoysticks()
+    print 'Registering joysticks'
+    state.joysticks = engine.joystick.getJoysticks()
+
+    for _, control in pairs(state.controls) do
+        control.joystick = state.joysticks[control.position]
+    end
+end
+
 ---Create a InputMap
 ---@generic InputMap : table
 ---@generic Preset : table
@@ -173,6 +187,9 @@ function Control.RegisterGamepad(button, position)
     -- print_r(gp)
     gp[position][button] = true
 
+    if #state.joysticks == 0 then
+        Control.RegisterJoysticks()
+    end
 end
 
 ---Use this with keypressed
