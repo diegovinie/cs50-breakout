@@ -1,0 +1,3 @@
+[submodule "caixa"]
+	path = caixa
+	url = git@github.com:diegovinie/caixa.git
